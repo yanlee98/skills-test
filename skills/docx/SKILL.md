@@ -71,18 +71,4 @@ Accepting a deleted paragraph mark should join that paragraph to the one below i
 
 An empty bullet in either view is an artifact of that view, not a defect in the document. Check paragraph deletions in the XML.
 
-## Comments
-
-Comments require six cross-linked files. Use the helper — directory mode when you'll also be editing `document.xml` (saves an unzip/rezip cycle), `.docx`-direct mode otherwise:
-
-```bash
-# Against an already-unpacked directory (preferred when also placing markers)
-python scripts/comment.py unpacked/ "Fees & expenses cap is too low"
-python scripts/comment.py unpacked/ "Agreed" --parent 0
-
-# Against a .docx directly
-python scripts/comment.py contract.docx "This cap is too low" -o annotated.docx
-```
-
-The script writes `comments.xml`, `commentsExtended.xml`, `commentsIds.xml`, `commentsExtensible.xml`, the relationships, and the content-type overrides. Comment IDs are auto-assigned. It then prints the `<w:commentRangeStart>`/`<w:commentRangeEnd>`/`<w:commentReference>` snippet to add to `word/document.xml` so the comment anchors to specific text — until you place those markers, the comment exists but is not visible.
 
